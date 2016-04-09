@@ -54,6 +54,9 @@ defmodule Trello do
     end
   end
 
+  def process_error(error), do: error
+  def process_success(body), do: body
+
   defp key, do: Application.fetch_env!(:trello, :secret)
   defp has_query_params?(url), do: Regex.match?(~r/\?/, url)
   
@@ -72,7 +75,7 @@ defmodule Trello do
 
   defp unwrap_http(response) do
     with {:ok, %HTTPoison.Response{body: body}} <- response do
-      if (is_bitstring body), do: {:error, body}, else: {:ok, body}
+      if (is_bitstring body), do: {:error, process_error(body)}, else: {:ok, process_success(body)}
     end
   end
 end
