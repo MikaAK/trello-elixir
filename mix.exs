@@ -35,6 +35,7 @@ defmodule TrelloElixir.Mixfile do
 
   defp package do
     %{
+      files: ["lib", "README*", "mix.exs", "LICENSE*"],
       maintainers: ["Mika Kalathil"],
       licenses: ["MIT"],
       links: %{
