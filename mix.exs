@@ -28,8 +28,8 @@ defmodule TrelloElixir.Mixfile do
 
   defp deps do
     [
-      {:httpoison, "~> 0.8.2"},
-      {:poison, "~> 2.0"}
+      {:httpoison, ">= 0.8.2"},
+      {:poison, ">= 1.5"}
     ]
   end
 
