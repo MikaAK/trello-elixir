@@ -3,6 +3,17 @@ Trello
 
 Wrapper for trello api
 
+#### Getting Started
+```elixir
+config :trello,
+  secret: "23o4hqsfkdhalsdjfalksjdfl;"
+```
+###### To use env key
+```elixir
+config :trello,
+  secret: {:system, "TRELLO_KEY"}
+```
+
 ### Methods
 
 - `get(url, secret)`

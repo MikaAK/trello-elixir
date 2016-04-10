@@ -1,6 +1,5 @@
 defmodule Trello.Http do
   use HTTPoison.Base
-  import IEx
 
   def process_url(url), do: "https://trello.com/1/" <> url
 

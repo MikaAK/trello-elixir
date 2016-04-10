@@ -1,6 +1,5 @@
 defmodule Trello do
   alias Trello.Http
-  import IEx
 
   def get(url, secret), do: Http.get(create_url(url, secret)) |> unwrap_http
   def get!(url, secret), do: Http.get!(create_url(url, secret)) |> unwrap_http
@@ -56,9 +55,19 @@ defmodule Trello do
 
   def process_error(error), do: error
   def process_success(body), do: body
-
-  defp key, do: Application.fetch_env!(:trello, :secret)
   defp has_query_params?(url), do: Regex.match?(~r/\?/, url)
+
+  defp key do
+    secret = Application.fetch_env!(:trello, :secret)
+    
+    if (is_tuple secret) do
+      {:system, key} = secret
+
+      System.get_env(key)
+    else
+      secret
+    end
+  end
   
   defp get_lists_with_id(id, idName, list) do
     Enum.filter list, fn(item) ->
