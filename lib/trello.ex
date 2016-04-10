@@ -47,9 +47,11 @@ defmodule Trello do
         Map.put list, :cards, get_lists_with_id(list[:id], "idList", cards)
       end)
 
-      Map.put(board, :cards, cards)
+      board = Map.put(board, :cards, cards)
         |> Map.put(:labels, labels)
         |> Map.put(:lists, lists)
+
+      {:ok, board}
     end
   end
 
