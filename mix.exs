@@ -1,7 +1,7 @@
 defmodule TrelloElixir.Mixfile do
   use Mix.Project
 
-  @version "1.0.0"
+  @version "1.0.1"
   @elixir_version "~> 1.2"
 
   def project do
