@@ -37,6 +37,12 @@ defmodule Trello do
   def get_member(member_id, secret), do: get "/members/#{member_id}", secret
   def get_member!(member_id, secret), do: get! "/members/#{member_id}", secret
 
+  def get_member_organizations(member_id, secret), do: get "/members/#{member_id}/organizations", secret
+  def get_member_organizations!(member_id, secret), do: get "/members/#{member_id}/organizations", secret
+
+  def get_current_member(secret), do: get("/members/me", secret)
+  def get_current_member!(secret), do: get!("/members/me", secret)
+
   def get_full_board(board_id, secret) do
     with {:ok, board} <- get_board(board_id, secret),
          {:ok, cards} <- get_board_cards(board_id, secret),
