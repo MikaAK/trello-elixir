@@ -1,6 +1,19 @@
 defmodule Trello do
   alias Trello.Http
 
+  def generate_auth_url(config) do
+    query_params = Map.put(config, :key, trello_app_key)
+
+    query_params = if (!Map.has_key?(config, :name)) do
+      Map.put(query_params, :name, trello_app_name)
+    else
+      query_params
+    end
+
+    "authorize?" <> URI.encode_query(query_params)
+      |> Http.process_url
+  end
+
   def get(url, secret), do: Http.get(create_url(url, secret)) |> unwrap_http
   def get!(url, secret), do: Http.get!(create_url(url, secret)) |> unwrap_http
 
@@ -63,17 +76,18 @@ defmodule Trello do
 
   def process_error(error), do: error
   def process_success(body), do: body
+
+  defp trello_app_key, do: Application.fetch_env!(:trello, :app_key)
+  defp trello_app_name, do: Application.fetch_env!(:trello, :name)
   defp has_query_params?(url), do: Regex.match?(~r/\?/, url)
 
   defp key do
-    secret = Application.fetch_env!(:trello, :secret)
-    
-    if (is_tuple secret) do
-      {:system, key} = secret
+    if (is_tuple trello_app_key) do
+      {:system, key} = trello_app_key
 
       System.get_env(key)
     else
-      secret
+      trello_app_key
     end
   end
   

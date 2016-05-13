@@ -6,15 +6,19 @@ Wrapper for trello api
 #### Getting Started
 ```elixir
 config :trello,
-  secret: "23o4hqsfkdhalsdjfalksjdfl;"
+  app_key: "23o4hqsfkdhalsdjfalksjdfl;",
+  name: "Test App"
 ```
 ###### To use env key
 ```elixir
 config :trello,
-  secret: {:system, "TRELLO_KEY"}
+  app_key: {:system, "TRELLO_KEY"}
 ```
 
 ### Methods
+***Secret is from authorization via trello. You can use generate_auth_url to generate the url***
+
+- `generate_auth_url(config)` - {scope: "account,write,read", exipiry: "never", response_type: "token"}
 
 - `get(url, secret)`
 - `get!(url, secret)`
