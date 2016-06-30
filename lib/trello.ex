@@ -17,8 +17,8 @@ defmodule Trello do
   def get(url, secret), do: Http.get(create_url(url, secret)) |> unwrap_http
   def get!(url, secret), do: Http.get!(create_url(url, secret)) |> unwrap_http
 
-  def post(url, body, secret), do: Http.post(create_url(url, secret), body) |> unwrap_http
-  def post!(url, body, secret), do: Http.post!(create_url(url, secret), body) |> unwrap_http
+  def post(url, body, secret), do: Http.post(create_url(url, secret), body, %{ "Content-Type": "application/json; charset=utf-8"}) |> unwrap_http
+  def post!(url, body, secret), do: Http.post!(create_url(url, secret), body, %{ "Content-Type": "application/json; charset=utf-8"}) |> unwrap_http
 
   def put(url, body, secret), do: Http.put(create_url(url, secret), body) |> unwrap_http
   def put!(url, body, secret), do: Http.put!(create_url(url, secret), body) |> unwrap_http
@@ -43,7 +43,7 @@ defmodule Trello do
 
   def get_list(list_id, secret), do: get "/lists/#{list_id}", secret
   def get_list!(list_id, secret), do: get! "/lists/#{list_id}", secret
-
+  
   def get_list_cards(list_id, secret), do: get "/lists/#{list_id}/cards", secret
   def get_list_cards!(list_id, secret), do: get! "/lists/#{list_id}/cards", secret
 
