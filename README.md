@@ -51,8 +51,11 @@ config :trello,
 - `get_list(list_id, secret)`
 - `get_list!(list_id, secret)`
 
-- `get_list_cards(list_id, secret)`
+- `add_comment_to_card( card_id, comment, secret )`
+- `add_comment_to_card!( card_id, comment, secret )`
 
+- `get_list_cards(list_id, secret)`
 - `get_list_cards!(list_id, secret)`
+
 - `get_member(member_id, secret)`
 - `get_member!(member_id, secret)`
