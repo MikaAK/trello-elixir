@@ -44,8 +44,8 @@ defmodule Trello do
   def get_list(list_id, secret), do: get "/lists/#{list_id}", secret
   def get_list!(list_id, secret), do: get! "/lists/#{list_id}", secret
 
-  def add_comment_to_card( card_id, comment, secret ), do: post "/cards/#{card_id}/actions/comments", %{text: comment} |> Poison.encode!, secret
-  def add_comment_to_card!( card_id, comment, secret ), do: post! "/cards/#{card_id}/actions/comments", %{text: comment} |> Poison.encode!, secret
+  def add_comment_to_card( card_id, comment, secret ), do: post "/cards/#{card_id}/actions/comments", %{text: comment}, secret
+  def add_comment_to_card!( card_id, comment, secret ), do: post! "/cards/#{card_id}/actions/comments", %{text: comment}, secret
   
   def get_list_cards(list_id, secret), do: get "/lists/#{list_id}/cards", secret
   def get_list_cards!(list_id, secret), do: get! "/lists/#{list_id}/cards", secret
