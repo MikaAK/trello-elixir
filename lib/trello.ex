@@ -44,8 +44,8 @@ defmodule Trello do
   def get_list(list_id, secret), do: get "/lists/#{list_id}", secret
   def get_list!(list_id, secret), do: get! "/lists/#{list_id}", secret
 
-  def add_comment_to_card( card_id, comment, secret ), do: post "/cards/#{card_id}/actions/comments", %{text: comment}, secret
-  def add_comment_to_card!( card_id, comment, secret ), do: post! "/cards/#{card_id}/actions/comments", %{text: comment}, secret
+  def add_comment_to_card(card_id, comment, secret), do: post "/cards/#{card_id}/actions/comments", %{text: comment}, secret
+  def add_comment_to_card!(card_id, comment, secret), do: post! "/cards/#{card_id}/actions/comments", %{text: comment}, secret
   
   def get_list_cards(list_id, secret), do: get "/lists/#{list_id}/cards", secret
   def get_list_cards!(list_id, secret), do: get! "/lists/#{list_id}/cards", secret
@@ -91,8 +91,7 @@ defmodule Trello do
       System.get_env(key)
     else
       trello_app_key
-    end
-  end
+    end 
   
   defp get_lists_with_id(id, idName, list) do
     Enum.filter list, fn(item) ->
