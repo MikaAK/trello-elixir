@@ -3,6 +3,10 @@ defmodule Trello.Http do
 
   def process_url(url), do: "https://trello.com/1/" <> url
 
+  defp process_request_body(body) do
+    if (is_map(body)), do: Poison.encode!( body ), else: body
+  end
+  
   def process_response_body(body) when is_bitstring(body) do
     if (is_json(body)), do: decode_body(body), else: body
   end
