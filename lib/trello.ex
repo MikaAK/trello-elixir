@@ -92,6 +92,7 @@ defmodule Trello do
     else
       trello_app_key
     end 
+  end
   
   defp get_lists_with_id(id, idName, list) do
     Enum.filter list, fn(item) ->
