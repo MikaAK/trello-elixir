@@ -2,7 +2,7 @@ defmodule Trello do
   alias Trello.Http
 
   def generate_auth_url(config) do
-    query_params = Map.put(config, :key, trello_app_key)
+    query_params = Map.put(config, :key, key)
 
     query_params = if (!Map.has_key?(config, :name)) do
       Map.put(query_params, :name, trello_app_name)
@@ -46,7 +46,7 @@ defmodule Trello do
 
   def add_comment_to_card(card_id, comment, secret), do: post "/cards/#{card_id}/actions/comments", %{text: comment}, secret
   def add_comment_to_card!(card_id, comment, secret), do: post! "/cards/#{card_id}/actions/comments", %{text: comment}, secret
-  
+
   def get_list_cards(list_id, secret), do: get "/lists/#{list_id}/cards", secret
   def get_list_cards!(list_id, secret), do: get! "/lists/#{list_id}/cards", secret
 
@@ -91,9 +91,9 @@ defmodule Trello do
       System.get_env(key)
     else
       trello_app_key
-    end 
+    end
   end
-  
+
   defp get_lists_with_id(id, idName, list) do
     Enum.filter list, fn(item) ->
       Map.get(item, String.to_atom(idName)) == id
