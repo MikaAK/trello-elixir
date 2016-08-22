@@ -59,6 +59,26 @@ defmodule Trello do
   def add_comment_to_card(card_id, comment, secret), do: post "/cards/#{card_id}/actions/comments", %{text: comment}, secret
   def add_comment_to_card!(card_id, comment, secret), do: post! "/cards/#{card_id}/actions/comments", %{text: comment}, secret
 
+  @doc """
+    https://developers.trello.com/advanced-reference/card#post-1-cards-card-id-or-shortlink-attachments
+    [{"name", "value"},  {"mimeType", "value"}, {:file, path_to_file}]
+    opts
+      file (optional)     Valid Values: A file
+      url (optional)      Valid Values: A URL starting with http:// or https:// or null
+      name (optional)     Valid Values: a string with a length from 0 to 256
+      mimeType (optional) Valid Values: a string with a length from 0 to 256
+  """
+  @valid_attachment_opts [:file, "name", "mimeType", "url"]
+  def add_attachment_to_card(card_id, opts, secret),  do: add_attachment_to_card(validate_attachment_opts(opts), card_id, opts, secret)
+  def add_attachment_to_card!(card_id, opts, secret), do: add_attachment_to_card!(validate_attachment_opts(opts), card_id, opts, secret)
+
+  def add_attachment_to_card(true, card_id, opts, secret),    do: post_multipart("cards/#{card_id}/attachments", opts, secret)
+  def add_attachment_to_card(false, _card_id, opts, _secret), do: raise "only following keys allowed #{inspect @valid_attachment_opts} \n --> #{inspect opts}"
+
+  def add_attachment_to_card!(true, card_id, opts, secret),    do: post_multipart!("cards/#{card_id}/attachments", opts, secret)
+  def add_attachment_to_card!(false, _card_id, opts, _secret), do: raise "only following keys allowed #{inspect @valid_attachment_opts} \n --> #{inspect opts}"
+  defp validate_attachment_opts(opts), do: Enum.all?(opts, fn({k,_v})-> k in [:file, "name", "mimeType", "url"] end)
+
   def get_list_cards(list_id, secret), do: get "/lists/#{list_id}/cards", secret
   def get_list_cards!(list_id, secret), do: get! "/lists/#{list_id}/cards", secret
 
