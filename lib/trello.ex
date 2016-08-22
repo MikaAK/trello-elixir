@@ -20,6 +20,18 @@ defmodule Trello do
   def post(url, body, secret), do: Http.post(create_url(url, secret), body, %{ "Content-Type": "application/json; charset=utf-8"}) |> unwrap_http
   def post!(url, body, secret), do: Http.post!(create_url(url, secret), body, %{ "Content-Type": "application/json; charset=utf-8"}) |> unwrap_http
 
+  @doc """
+  post via multipart/form-data
+  requried for attachments
+      body: {:multipart, [{"name", "value"}, {:file, path_to_file}]}
+  """
+  def post_multipart(url, body, secret) do
+    Http.post(create_url(url, secret), body, %{"Content-Type": "multipart/form-data"}) |> unwrap_http
+  end
+  def post_multipart!(url, body, secret) do
+    Http.post!(create_url(url, secret), body, %{"Content-Type": "multipart/form-data"}) |> unwrap_http
+  end
+
   def put(url, body, secret), do: Http.put(create_url(url, secret), body) |> unwrap_http
   def put!(url, body, secret), do: Http.put!(create_url(url, secret), body) |> unwrap_http
 
