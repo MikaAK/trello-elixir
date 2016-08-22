@@ -23,13 +23,13 @@ defmodule Trello do
   @doc """
   post via multipart/form-data
   requried for attachments
-      body: {:multipart, [{"name", "value"}, {:file, path_to_file}]}
+      body: [{"name", "value"}, {:file, path_to_file}]
   """
   def post_multipart(url, body, secret) do
     Http.post(create_url(url, secret), body, %{"Content-Type": "multipart/form-data"}) |> unwrap_http
   end
   def post_multipart!(url, body, secret) do
-    Http.post!(create_url(url, secret), body, %{"Content-Type": "multipart/form-data"}) |> unwrap_http
+    Http.post!(create_url(url, secret), {:multipart, body}, %{"Content-Type": "multipart/form-data"}) |> unwrap_http
   end
 
   def put(url, body, secret), do: Http.put(create_url(url, secret), body) |> unwrap_http
