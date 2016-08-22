@@ -6,7 +6,7 @@ defmodule Trello.Http do
   defp process_request_body(body) do
     if (is_map(body)), do: Poison.encode!(body), else: body
   end
-  
+
   def process_response_body(body) when is_bitstring(body) do
     if (is_json(body)), do: decode_body(body), else: body
   end
@@ -20,8 +20,12 @@ defmodule Trello.Http do
       key_name = Macro.underscore key
 
       {key_name, snake_keys(val)}
-    end 
+    end
   end
+  defp snake_keys(data) when is_list(data) do
+    for item <- data, into: [], do: snake_keys(item)
+  end
+  defp snake_keys(data), do: data
 
   defp atomize_keys(data) when is_map(data) do
     for {key, val} <- data, into: %{} do
@@ -30,16 +34,10 @@ defmodule Trello.Http do
       {key_name, atomize_keys(val)}
     end
   end
-  
-  defp snake_keys(data) when is_list(data) do
-    for item <- data, into: [], do: snake_keys(item)
-  end
-
   defp atomize_keys(data) when is_list(data) do
     for item <- data, into: [], do: atomize_keys(item)
   end
-
   defp atomize_keys(data), do: data
-  defp snake_keys(data), do: data
+
   defp is_json(string), do: Regex.match?(~r/^({|\[).*(}|\])$/, string)
 end
