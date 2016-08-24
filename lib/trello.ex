@@ -26,7 +26,7 @@ defmodule Trello do
       body: [{"name", "value"}, {:file, path_to_file}]
   """
   def post_multipart(url, body, secret) do
-    Http.post(create_url(url, secret), body, %{"Content-Type": "multipart/form-data"}) |> unwrap_http
+    Http.post(create_url(url, secret), {:multipart, body}, %{"Content-Type": "multipart/form-data"}) |> unwrap_http
   end
   def post_multipart!(url, body, secret) do
     Http.post!(create_url(url, secret), {:multipart, body}, %{"Content-Type": "multipart/form-data"}) |> unwrap_http
