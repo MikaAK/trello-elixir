@@ -80,24 +80,25 @@ defmodule Trello do
   def get_current_member!(secret), do: get!("/members/me", secret)
 
   def get_full_board(board_id, secret) do
-    with {:ok, board} <- get_board(board_id, secret),
-         {:ok, cards} <- get_board_cards(board_id, secret),
+    with {:ok, board}  <- get_board(board_id, secret),
+         {:ok, cards}  <- get_board_cards(board_id, secret),
          {:ok, labels} <- get_board_labels(board_id, secret),
-         {:ok, lists} <- get_board_lists(board_id, secret) do
+         {:ok, lists}  <- get_board_lists(board_id, secret) do
 
       lists = Enum.map(lists, fn(list) ->
         Map.put list, :cards, get_lists_with_id(list[:id], "idList", cards)
       end)
 
-      board = Map.put(board, :cards, cards)
+      board = board
+        |> Map.put(:cards,  cards)
         |> Map.put(:labels, labels)
-        |> Map.put(:lists, lists)
+        |> Map.put(:lists,  lists)
 
       {:ok, board}
     end
   end
 
-  def process_error(error), do: error
+  def process_error(error),  do: error
   def process_success(body), do: body
 
   defp has_query_params?(url), do: Regex.match?(~r/\?/, url)
