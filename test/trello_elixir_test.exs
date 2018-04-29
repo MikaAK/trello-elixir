@@ -1,6 +1,6 @@
-defmodule TrelloElixirTest do
+defmodule Trello.Test do
   use ExUnit.Case
-  doctest TrelloElixir
+  doctest Trello
 
   test "the truth" do
     assert 1 + 1 == 2

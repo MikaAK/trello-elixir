@@ -18,7 +18,7 @@ config :trello,
 ### Methods
 ***Secret is from authorization via trello. You can use generate_auth_url to generate the url***
 
-- `generate_auth_url(config)` - {scope: "account,write,read", exipiry: "never", response_type: "token"}
+- `generate_auth_url(config)` - %{scope: "account,write,read", exipiry: "never", response_type: "token"}
 
 - `get(url, secret)`
 - `get!(url, secret)`
