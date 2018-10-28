@@ -1,19 +1,21 @@
-defmodule TrelloElixir.Mixfile do
+defmodule Trello.Mixfile do
   use Mix.Project
 
   @version "1.3.0"
   @elixir_version "~> 1.2"
 
   def project do
-    [app: :trello,
-     name: "Trello",
-     description: description,
-     version: @version,
-     elixir: @elixir_version,
-     package: package,
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     deps: deps]
+    [
+      app: :trello,
+      name: "Trello",
+      description: description(),
+      version: @version,
+      elixir: @elixir_version,
+      package: package(),
+      build_embedded: Mix.env == :prod,
+      start_permanent: Mix.env == :prod,
+      deps: deps()
+    ]
   end
 
   def description do
