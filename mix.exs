@@ -1,7 +1,7 @@
 defmodule Trello.Mixfile do
   use Mix.Project
 
-  @version "1.3.0"
+  @version "1.4.0"
   @elixir_version "~> 1.2"
 
   def project do
@@ -31,7 +31,8 @@ defmodule Trello.Mixfile do
   defp deps do
     [
       {:httpoison, ">= 0.8.2"},
-      {:poison, ">= 1.5.0"}
+      {:poison, ">= 1.5.0"},
+      {:ex_doc, "~> 0.18.0", only: :dev}
     ]
   end
 
