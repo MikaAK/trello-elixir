@@ -3,7 +3,7 @@ defmodule Trello.Config do
 
   def generate_auth_url(config) do
     query = URI.encode_query(query_params(config))
-    Http.process_url("authorize?" <> query)
+    Http.process_request_url("authorize?" <> query)
   end
 
   def query_params(config) do

@@ -1,9 +1,9 @@
 defmodule Trello.Http do
   use HTTPoison.Base
 
-  def process_url(url), do: "https://trello.com/1/" <> url
+  def process_request_url(url), do: "https://trello.com/1/#{url}"
 
-  defp process_request_body(body) do
+  def process_request_body(body) do
     if (is_map(body)), do: Poison.encode!(body), else: body
   end
 
@@ -12,14 +12,14 @@ defmodule Trello.Http do
   end
 
   defp decode_body(body) do
-    with {:ok, data} <- Poison.decode(body), do: snake_keys(data) |> atomize_keys
+    with {:ok, data} <- Poison.decode(body) do
+      data |> snake_keys |> atomize_keys
+    end
   end
 
   defp snake_keys(data) when is_map(data) do
     for {key, val} <- data, into: %{} do
-      key_name = Macro.underscore key
-
-      {key_name, snake_keys(val)}
+      {Macro.underscore(key), snake_keys(val)}
     end
   end
   defp snake_keys(data) when is_list(data) do
