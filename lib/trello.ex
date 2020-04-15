@@ -48,8 +48,8 @@ defmodule Trello do
   def add_comment_to_card!(card_id, comment, secret), do: post! "/cards/#{card_id}/actions/comments", %{text: comment}, secret
 
   @doc """
-    https://developers.trello.com/advanced-reference/card#post-1-cards-card-id-or-shortlink-attachments
-    [{"name", "value"},  {"mimeType", "value"}, {:file, path_to_file}]
+    https://developer.atlassian.com/cloud/trello/rest/#api-cards-id-attachments-post
+      [{"name", "value"},  {"mimeType", "value"}, {:file, path_to_file}]
     opts
       file (optional)     Valid Values: A file
       url (optional)      Valid Values: A URL starting with http:// or https:// or null
